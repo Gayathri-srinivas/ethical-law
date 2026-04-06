@@ -588,103 +588,29 @@ export class UIRenderer {
                 );
             }
     
-           let longPressTimer = null;
-
-verseDiv.addEventListener('mousedown', (e) => {
-   longPressTimer = setTimeout(() => {
-    longPressTimer = null;
-    const wasHighlighted = verseDiv.classList.contains(CSS_CLASSES.HIGHLIGHTED);
-    verseDiv.dataset.wasHighlighted = wasHighlighted;
-    verseDiv.classList.add('selected-for-copy');
-    
-    // Selection mode — header మార్చు
-    const headerActions = document.getElementById('header-actions');
-    headerActions?.classList.add('selection-mode');
-    
-    navigator.vibrate?.(50);
-}, 1000);
-});
-
-verseDiv.addEventListener('mouseup', () => {
-    if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-    }
-});
-
-verseDiv.addEventListener('mouseleave', () => {
-    if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-    }
-});
-
-// Touch support for mobile
-verseDiv.addEventListener('touchstart', (e) => {
-    longPressTimer = setTimeout(() => {
-        longPressTimer = null;
-        const wasHighlighted = verseDiv.classList.contains(CSS_CLASSES.HIGHLIGHTED);
-        verseDiv.dataset.wasHighlighted = wasHighlighted;
-        verseDiv.classList.add('selected-for-copy');
-        
-        const copyBtn = document.getElementById('copy-verses-btn');
-        copyBtn?.classList.add('visible');
-        
-        navigator.vibrate?.(50);
-    }, 1000);
-}, { passive: true });
-
-verseDiv.addEventListener('touchend', () => {
-    if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-    }
-});
-
-verseDiv.addEventListener('touchmove', () => {
-    if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-    }
-});
-
-verseDiv.onclick = (e) => {
-    e.stopPropagation();
-
-    const allVerses = document.querySelectorAll('.verse');
-    allVerses.forEach(v => {
-        if (!v.classList.contains('selected-for-copy')) {
-            v.classList.remove(CSS_CLASSES.HIGHLIGHTED);
-        }
-    });
-
-    if (!verseDiv.classList.contains('selected-for-copy')) {
-        verseDiv.classList.add(CSS_CLASSES.HIGHLIGHTED);
-    }
-
-    const selectedVerses = document.querySelectorAll('.verse.selected-for-copy');
-const headerActions = document.getElementById('header-actions');
-
-if (selectedVerses.length > 0) {
-    headerActions?.classList.add('selection-mode');
-} else {
-    headerActions?.classList.remove('selection-mode');
-    return;
-}
-
-    const wasHighlighted = verseDiv.classList.contains(CSS_CLASSES.HIGHLIGHTED);
-    verseDiv.dataset.wasHighlighted = wasHighlighted;
-    verseDiv.classList.toggle('selected-for-copy');
-
-    const updatedSelected = document.querySelectorAll('.verse.selected-for-copy');
-    const copyBtn = document.getElementById('copy-verses-btn');
-
-    if (updatedSelected.length > 0) {
-        copyBtn?.classList.add('visible');
-    } else {
-        copyBtn?.classList.remove('visible');
-    }
-};
+            verseDiv.onclick = (e) => {
+                e.stopPropagation();
+                
+                const currentlyHighlighted = verseDiv.classList.contains(CSS_CLASSES.HIGHLIGHTED);
+                
+                if (currentlyHighlighted) {
+                    verseDiv.classList.remove(CSS_CLASSES.HIGHLIGHTED);
+                    this.storageManager.setVerseColor(
+                        this.navState.currentBook,
+                        this.navState.currentChapter,
+                        index,
+                        'none'
+                    );
+                } else {
+                    verseDiv.classList.add(CSS_CLASSES.HIGHLIGHTED);
+                    this.storageManager.setVerseColor(
+                        this.navState.currentBook,
+                        this.navState.currentChapter,
+                        index,
+                        'highlighted'
+                    );
+                }
+            };
     
             fragment.appendChild(verseDiv);
         });
@@ -830,7 +756,6 @@ renderSearchResults({ results, query, searchEngine, onResultClick, maxDisplay = 
         this.renderEmptySearchResults(query);
         return;
     }
-
 
     this.renderSearchResultsContainer(content);
     const container = content.querySelector('.search-results');
@@ -1075,31 +1000,6 @@ renderSearchResults({ results, query, searchEngine, onResultClick, maxDisplay = 
 
         container.appendChild(loadMoreBtn);
     }
-
-renderEmptySearchResults(query) {
-    // ⭐ Loading hide
-document.querySelector('.loading')?.style.setProperty('display', 'none', 'important');
-    const container = document.getElementById(ELEMENT_IDS.SEARCH_RESULTS) 
-                   || document.getElementById('search-results');
-    if (!container) return;
-    
-    // ⭐ Loading hide cheyyi
-    const loadingEl = document.querySelector('.loading');
-if (loadingEl) loadingEl.style.display = 'none';
-    
-    if (!query || query.trim() === '') {
-        container.innerHTML = '';
-        return;
-    }
-    
-    container.innerHTML = `
-        <div class="no-results" style="text-align:center; padding:40px; color:#888;">
-            <p style="font-size:24px;">🔍</p>
-            <p>"${query}" కి results దొరకలేదు</p>
-            <p style="font-size:14px;">వేరే word try చేయండి</p>
-        </div>
-    `;
-}
 }
 
 // ============================================
