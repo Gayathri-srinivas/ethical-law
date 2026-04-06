@@ -4,8 +4,6 @@ import {
     CONFIG, 
     BOOK_NAMES, 
     BOOK_DISPLAY_NAMES, 
-    BOOK_NAMES_ENGLISH,
-    BOOK_DISPLAY_NAMES_ENGLISH,
     UI_TEXT, 
     ELEMENT_IDS, 
     CSS_CLASSES,
@@ -19,62 +17,63 @@ import { NavigationState } from './navigationState.js';
 import { URLManager } from './urlManager.js';
 import { SearchEngine } from './searchEngine.js';
 import { UIRenderer } from './uiRenderer.js';
-// ⭐ Top lo idi check cheyyi — file beginning lo import undi kada:
-
 
 // ============================================
 // MAIN APP CLASS
 // ============================================
 class BibleApp {
-   constructor() {
-    this.dataManager = new DataManager();
-    this.storageManager = new StorageManager();
-    this.navState = new NavigationState();
-    this.urlManager = new URLManager(this.navState);
-    this.searchEngine = new SearchEngine(this.dataManager, this.navState);
-    this.uiRenderer = new UIRenderer(
-        this.dataManager,
-        this.storageManager,
-        this.navState,
-        this.urlManager
-    );
-    
-    this.currentLanguages = this.storageManager.getLanguage();
-    console.log('📱 App initialized with languages:', this.currentLanguages);
-    
-    this.dataManager.setCurrentLanguages(this.currentLanguages);
-    this.navState.currentLanguages = this.currentLanguages;
-    this.searchEngine.currentLanguages = this.currentLanguages;
-    this.uiRenderer.currentLanguages = this.currentLanguages;
-    
-    // ⭐ Ila cheyyi — simple ga
-    this.initializeEventListeners();
-    this.setupScopeDropdown();
-    this.initializePopState();
-    this.loadInitialState();
-    
-    this.storageManager.applyTheme(this.storageManager.getTheme());
-    
-    const langIcon = document.getElementById('lang-icon');
-    if (langIcon) {
-        const currentTheme = this.storageManager.getTheme();
-        if (currentTheme === THEME.LIGHT) {
-            langIcon.src = 'images/lang-icon-black.png';
-        } else {
-            langIcon.src = 'images/lang-icon-white.png';
+    constructor() {
+        // Initialize managers
+        this.dataManager = new DataManager();
+        this.storageManager = new StorageManager();
+        this.navState = new NavigationState();
+        this.urlManager = new URLManager(this.navState);
+        this.searchEngine = new SearchEngine(this.dataManager, this.navState);
+        this.uiRenderer = new UIRenderer(
+            this.dataManager,
+            this.storageManager,
+            this.navState,
+            this.urlManager
+        );
+        
+        // Initialize current language from storage
+        this.currentLanguages = this.storageManager.getLanguage();
+        console.log('📱 App initialized with languages:', this.currentLanguages);
+        
+        this.dataManager.setCurrentLanguages(this.currentLanguages);
+        this.navState.currentLanguages = this.currentLanguages;
+        this.searchEngine.currentLanguages = this.currentLanguages;
+        this.uiRenderer.currentLanguages = this.currentLanguages;
+        
+        // Setup
+        this.initializeEventListeners();
+        this.initializePopState();
+        this.loadInitialState();
+        this.storageManager.applyTheme(this.storageManager.getTheme());// Initialize language icon based on current theme
+        const langIcon = document.getElementById('lang-icon');
+        if (langIcon) {
+            const currentTheme = this.storageManager.getTheme();
+            if (currentTheme === THEME.LIGHT) {
+                langIcon.src = '../../asset/images/ethicallaw/lang-icon-white.png';
+            } else {
+                langIcon.src = '../../asset/images/ethicallaw/lang-icon-black.png';
+            }
         }
+        
+        this.storageManager.applyZoom(this.storageManager.currentZoom);
+        
+        this.updateLanguageMenuUI();
+        this.updateLanguageUI();
+        
+        // ⭐ Initialize transliteration
+        // this.setupTransliteration();
     }
-    
-    this.storageManager.applyZoom(this.storageManager.currentZoom);
-    this.updateLanguageMenuUI();
-    this.updateLanguageUI();
-}
 
 
     // ============================================
     // EVENT LISTENERS SETUP
     // ============================================
-   async initializeEventListeners() {
+    initializeEventListeners() {
         document.getElementById(ELEMENT_IDS.SEARCH_TOGGLE)
             ?.addEventListener('click', () => this.handleSearchToggle());
 
@@ -114,163 +113,7 @@ class BibleApp {
         });        
         this.setupLanguageMenu();
         this.setupZoomControls();
-        
-        
-document.getElementById('copy-verses-btn')?.addEventListener('click', () => {
-    const selectedVerses = document.querySelectorAll('.verse.selected-for-copy');
-    if (selectedVerses.length === 0) return;
-
-    const bookNames = this.currentLanguages[0] === 'english' 
-        ? BOOK_DISPLAY_NAMES_ENGLISH 
-        : BOOK_DISPLAY_NAMES;
-    
-    const bookName = bookNames[this.navState.currentBook];
-    const chapter = this.navState.currentChapter + 1;
-
-    let copyText = '';
-    selectedVerses.forEach(verseEl => {
-        const verseIndex = parseInt(verseEl.dataset.verseIndex);
-        const verseNum = verseIndex + 1;
-        const verseText = verseEl.innerText.replace(/^\d+/, '').trim();
-        copyText += `*${bookName} ${chapter}:${verseNum}*\n${verseText}\n\n`;
-    });
-
-    const textToCopy = copyText.trim();
-
-    const afterCopy = () => {
-    selectedVerses.forEach(v => {
-        v.classList.remove('selected-for-copy');
-        if (v.dataset.wasHighlighted === 'true') {
-            v.classList.add(CSS_CLASSES.HIGHLIGHTED);
-        }
-    });
-    document.getElementById('copy-verses-btn')?.classList.remove('visible');
-    
-    // ⭐ Header normal కి రావాలి
-    document.getElementById('header-actions')?.classList.remove('selection-mode');
-    
-    const copyBtn = document.getElementById('copy-verses-btn');
-    if (copyBtn) {
-        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
-        }, 1500);
     }
-};
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            afterCopy();
-        });
-    } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = textToCopy;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.focus();
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        afterCopy();
-    }
-});
-
-// Bookmark button handler
-document.getElementById('bookmark-verses-btn')?.addEventListener('click', () => {
-    const selectedVerses = document.querySelectorAll('.verse.selected-for-copy');
-    if (selectedVerses.length === 0) return;
-
-    const bookmarks = JSON.parse(localStorage.getItem('ethicallaw-bookmarks') || '[]');
-
-    selectedVerses.forEach(v => {
-        v.classList.remove('selected-for-copy');
-        v.classList.toggle('bookmarked');
-        if (v.dataset.wasHighlighted === 'true') {
-            v.classList.add(CSS_CLASSES.HIGHLIGHTED);
-        }
-
-        const verseIndex = parseInt(v.dataset.verseIndex);
-        const bookNames = this.currentLanguages[0] === 'english'
-            ? BOOK_DISPLAY_NAMES_ENGLISH
-            : BOOK_DISPLAY_NAMES;
-        const bookName = bookNames[this.navState.currentBook];
-        const chapter = this.navState.currentChapter + 1;
-        const verseText = v.innerText.replace(/^\d+/, '').trim();
-
-        const bookmark = {
-            bookIndex: this.navState.currentBook,
-            chapterIndex: this.navState.currentChapter,
-            verseIndex,
-            bookName,
-            chapter,
-            verseNum: verseIndex + 1,
-            verseText
-        };
-
-        const exists = bookmarks.findIndex(b => 
-            b.bookIndex === bookmark.bookIndex && 
-            b.chapterIndex === bookmark.chapterIndex && 
-            b.verseIndex === bookmark.verseIndex
-        );
-
-        if (exists >= 0) {
-            bookmarks.splice(exists, 1);
-        } else {
-            bookmarks.push(bookmark);
-        }
-    });
-
-    localStorage.setItem('ethicallaw-bookmarks', JSON.stringify(bookmarks));
-    document.getElementById('header-actions')?.classList.remove('selection-mode');
-});
-
-document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
-    const bookmarks = JSON.parse(localStorage.getItem('ethicallaw-bookmarks') || '[]');
-
-    if (bookmarks.length === 0) {
-        alert('No bookmarks yet!');
-        return;
-    }
-
-    const content = this.uiRenderer.getContentElement();
-    if (!content) return;
-
-    content.innerHTML = '';
-
-    const section = document.createElement('div');
-    section.className = 'section bookmarks-section';
-
-    const h2 = document.createElement('h2');
-    h2.textContent = 'Bookmarks';
-    section.appendChild(h2);
-
-    bookmarks.forEach(b => {
-        const item = document.createElement('div');
-        item.className = 'item search-result';
-        item.innerHTML = `
-            <strong>${b.bookName} ${b.chapter}:${b.verseNum}</strong><br>
-            <span style="font-size:0.95em;">${b.verseText}</span>
-        `;
-        item.onclick = () => {
-            this.navState.currentBook = b.bookIndex;
-            this.navState.currentChapter = b.chapterIndex;
-            this.navState.currentVerse = b.verseIndex;
-            const params = new URLSearchParams();
-            params.set('book', b.bookIndex);
-            params.set('chapter', b.chapterIndex);
-            params.set('verse', b.verseIndex);
-            history.pushState(null, '', '?' + params.toString());
-            this.showVerseContent(b.verseIndex);
-        };
-        section.appendChild(item);
-    });
-
-    content.appendChild(section);
-    this.uiRenderer.hideNavHeader();
-});
-
-    }
-    
 
     // ============================================
     // LANGUAGE MENU SETUP
@@ -718,7 +561,7 @@ document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
             const searchInput = document.getElementById(ELEMENT_IDS.SEARCH_INPUT);
             searchInput?.focus();
             searchInput && (searchInput.value = '');
-     
+    
             this.navState.savePreSearchLocation();
             this.navState.isSearchActive = true;
             this.navState.lastSearchQuery = '';
@@ -833,35 +676,26 @@ document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
         }
     }
 
-  async performSearch(query, shouldPushHistory = true) {
-    this.uiRenderer.showLoading('Searching...');
+    async performSearch(query, shouldPushHistory = true) {
+        this.uiRenderer.showLoading('Searching...');
+        
+        // ⭐⭐⭐ LAZY LOADING: Load search data only when needed
+        console.log('🔍 Search triggered - ensuring data is loaded...');
+        await this.dataManager.loadSearchDataForAllLanguages();
     
-    // ⭐ Result count reset cheyyi — search start lo
-    this.uiRenderer.updateResultCount(0);
+        const results = await this.searchEngine.performSearch(query, shouldPushHistory);
     
-    const scopeBtn = document.getElementById('scope-btn');
-    const scope = scopeBtn?.dataset.scope || 'all';
+        if (results === null) {
+            this.uiRenderer.showLoading(UI_TEXT.SEARCH_FAILED);
+            return;
+        }
     
-    this.navState.currentLanguages = [LANGUAGE.TELUGU, LANGUAGE.ENGLISH];
+        if (shouldPushHistory) {
+            const params = new URLSearchParams();
+            params.set('search', query);
+            history.pushState(null, '', '?' + params.toString());
+        }
     
-    await this.dataManager.loadSearchDataForAllLanguages();
-    const results = await this.searchEngine.performSearch(query, scope);
-
-    if (results === null) {
-        this.uiRenderer.showLoading(UI_TEXT.SEARCH_FAILED);
-        return;
-    }
-
-    if (shouldPushHistory) {
-        const params = new URLSearchParams();
-        params.set('search', query);
-        history.pushState(null, '', '?' + params.toString());
-    }
-
-    if (results.length === 0) {
-        this.uiRenderer.updateResultCount(0); // ⭐ 0 set cheyyi
-        this.uiRenderer.renderEmptySearchResults(query);
-    } else {
         this.uiRenderer.renderSearchResults({
             results,
             query,
@@ -869,7 +703,10 @@ document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
             onResultClick: (result) => this.handleSearchResultClick(result)
         });
     }
-}
+
+    handlePrevChapter() {
+        this.navigateToPrevChapter();
+    }
     
     handleNextChapter() {
         this.navigateToNextChapter();
@@ -946,108 +783,6 @@ document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
             });
         });
     }
-
-   async setupScopeDropdown() {
-    const scopeBtn = document.getElementById('scope-btn');
-    const scopeMenu = document.getElementById('scope-menu');
-    if (!scopeBtn || !scopeMenu) return;
-
-    const setScope = (scope, label) => {
-    scopeBtn.dataset.scope = scope;
-    scopeBtn.setAttribute('data-scope', scope);
-    scopeBtn.innerHTML = `${label} <i class="fa fa-chevron-down"></i>`;
-    scopeMenu.classList.remove('active');
-    console.log('✅ Scope set:', scope);
-
-    // ⭐ Query unte matrame auto search
-    const searchInput = document.getElementById('search-input');
-    const query = searchInput?.value.trim();
-    
-    if (query) {
-        this.performSearch(query, false);
-    }
-    // Query ledu ante — empty state, nothing show cheyyi
-};
-
-    // Toggle menu open/close
-    scopeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        scopeMenu.classList.toggle('active');
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-scope')) {
-            scopeMenu.classList.remove('active');
-        }
-    });
-
-    // ⭐ All, OT, NT — direct click
-    scopeMenu.querySelector('[data-scope="all"]')
-        ?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setScope('all', 'All');
-        });
-
-    scopeMenu.querySelector('[data-scope="OT"]')
-        ?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setScope('OT', 'OT');
-        });
-
-    scopeMenu.querySelector('[data-scope="NT"]')
-        ?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setScope('NT', 'NT');
-        });
-
-    // ⭐ Books submenu toggle
-    const booksItem = scopeMenu.querySelector('[data-scope="BOOKS"]');
-booksItem?.addEventListener('click', (e) => {
-    if (e.target.closest('.submenu')) return;
-    e.stopPropagation();
-    booksItem.classList.toggle('open');
-    // ⭐ Don't setScope here — only open submenu
-});
-
-    // ⭐ Populate 66 books
-   const allBooks = document.getElementById('all-books');
-if (allBooks) {
-    allBooks.innerHTML = '';
-    
-    const teluguNames = [
-        'ఆదికాండము','నిర్గమకాండము','లేవీయకాండము','సంఖ్యాకాండము','ద్వితీయోపదేశకాండము',
-        'యెహోషువ','న్యాయాధిపతులు','రూతు','1 సమూయేలు','2 సమూయేలు',
-        '1 రాజులు','2 రాజులు','1 దినవృత్తాంతములు','2 దినవృత్తాంతములు','ఎజ్రా',
-        'నెహెమ్యా','ఎస్తేరు','యోబు','కీర్తనలు','సామెతలు',
-        'ప్రసంగి','పరమగీతము','యెషయా','యిర్మీయా','విలాపవాక్యములు',
-        'యెహెజ్కేలు','దానియేలు','హోషేయ','యోవేలు','ఆమోసు',
-        'ఓబద్యా','యోనా','మీకా','నహూము','హబక్కూకు',
-        'జెఫన్యా','హగ్గయి','జెకర్యా','మలాకీ',
-        'మత్తయి','మార్కు','లూకా','యోహాను','అపొస్తలుల కార్యములు',
-        'రోమీయులకు','1 కొరింథీయులకు','2 కొరింథీయులకు','గలతీయులకు','ఎఫెసీయులకు',
-        'ఫిలిప్పీయులకు','కొలొస్సయులకు','1 థెస్సలొనీకయులకు','2 థెస్సలొనీకయులకు','1 తిమోతికి',
-        '2 తిమోతికి','తీతుకు','ఫిలేమోనుకు','హెబ్రీయులకు','యాకోబు',
-        '1 పేతురు','2 పేతురు','1 యోహాను','2 యోహాను','3 యోహాను',
-        'యూదా','ప్రకటన గ్రంథము'
-    ];
-
-    BOOK_NAMES.forEach((name, i) => {
-        const label = teluguNames[i] || name;
-        const div = document.createElement('div');
-        div.className = 'scope-item';
-        div.dataset.scope = name;
-        div.textContent = label;
-        div.addEventListener('click', (e) => {
-            e.stopPropagation();
-            setScope(name, label); // ⭐ setScope call chestundi — auto search avutundi!
-        });
-        allBooks.appendChild(div);
-    });
-    
-    console.log('✅ Books populated:', BOOK_NAMES.length);
-}
-}
     
     // ============================================
     // ⭐ REAL-TIME TRANSLITERATION SETUP
