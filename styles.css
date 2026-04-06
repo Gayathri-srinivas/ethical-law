@@ -1,0 +1,2225 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Mandali&display=swap' );
+:root {
+    --telugu-font: "Mandali", "Noto Sans Telugu", sans-serif;
+    --english-font: "EB Garamond", serif;
+}
+body {
+
+    font-family: var(--english-font), var(--telugu-font) !important;
+    background-color: #0f0f1a;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.telugu-text {
+    font-family: var(--telugu-font) !important;
+}
+
+.english-text {
+    font-family: var(--english-font) !important;
+}
+#header {
+   background-color: #1a1a2e;
+    padding: 10px 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+#title {
+    font-size: 1.1em;  
+    color: #4da8ff;
+    margin: 0;
+    font-weight: bold;
+    flex: 1;
+}
+
+
+
+#header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.header-icon-btn {
+    background: none;
+    border: none;
+    color: #89bbea;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.header-icon-btn:hover {
+    background-color: rgba(77, 168, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.header-icon-btn:active {
+    transform: scale(0.95);
+}
+
+#search-container {
+    position: relative;
+    display: none;
+    align-items: center;
+    margin-top: 10px;
+    animation: slideDown 0.3s ease-out;
+}
+
+#search-input {
+    flex: 1;
+    padding: 12px 90px 12px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #262638;
+    color: #fff;
+    font-size: 1em;
+}
+
+#search-container.active {
+    display: flex;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#search-input:focus {
+    outline: 2px solid #4da8ff;
+}
+
+#search-input::placeholder {
+    color: #888;
+}
+
+#search-buttons {
+    position: absolute;
+    right: 8px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#search-icon, #clear-icon {
+    background: none;
+    color: #4da8ff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+#search-icon:hover {
+    color: #2b8cff;
+    transform: scale(1.1);
+}
+
+#clear-icon {
+    display: none;
+    color: #b5a2a2;
+}
+
+#clear-icon:hover {
+    color: #ff3333;
+    transform: scale(1.1);
+}
+
+#result-count {
+    font-size: 0.85em;
+    color: #4da8ff;
+    padding: 5px 0;
+    display: none;
+    margin-left: 5px;
+}
+
+#nav-header {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+    background-color: transparent;
+    z-index: 999;
+
+}
+
+
+
+#header-title {
+    text-align: center;
+    font-size: 1.4em;
+    color: #4da8ff;
+    font-weight: bold;
+}
+
+#header-title .clickable-book {
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(52 120 185 / 80%);
+    white-space: nowrap;
+    line-height: 1.2;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    min-height: 40px;
+}
+
+#header-title .clickable-book:hover {
+    background-color: rgba(77, 168, 255, 0.2);
+    border-color: rgba(77, 168, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+#header-title .clickable-chapter {
+   cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(52 120 185 / 80%);
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1.2;
+    min-height: 40px;
+}
+
+#header-title .clickable-chapter:hover {
+    background-color: rgba(77, 168, 255, 0.2);
+    border-color: rgba(77, 168, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.nav-button {
+    background: none;
+    color: #4da8ff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5em;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.nav-button:hover {
+    color: #2b8cff;
+    transform: scale(1.2);
+}
+
+.nav-button:disabled {
+    color: #444;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.nav-button:disabled:hover {
+    transform: none;
+}
+
+#content {
+    flex: 1;
+    overflow-x: hidden;
+    padding: 5px;
+    position: relative;
+}
+
+.loading {
+    text-align: center;
+    color: #4da8ff;
+    padding: 40px;
+    font-size: 1.2em;
+}
+
+.section h2 {
+    text-align: center;
+    color: #4da8ff;
+    margin-bottom: 22px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.section h2 .clickable-book-title {
+     cursor: pointer;
+    transition: all 0.3s;
+    padding: 9px 10px; /* ✅ Same padding as chapter */
+    border-radius: 8px;
+    border: 1px solid rgba(77, 168, 255, 0.3);
+    display: inline-block;
+    font-size: 0.95em;
+    text-decoration: none;
+    white-space: nowrap; /* ✅ Changed: Single line కి */
+    line-height: 1.4;
+    text-align: center;
+    vertical-align: middle;/* ✅ NEW: Center align */
+}
+
+.section h2 .clickable-book-title:hover {
+    background-color: rgba(77, 168, 255, 0.2);
+    border-color: rgba(77, 168, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 168, 255, 0.3);
+}
+
+.section h2 .clickable-chapter-title {
+   cursor: pointer;
+    transition: all 0.3s;
+    padding: 4px 9px; /* ✅ Adjusted to match book title */
+    border-radius: 8px;
+    border: 1px solid rgba(77, 168, 255, 0.3);
+    display: inline-block;
+    font-size: 0.95em;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.section h2 .clickable-chapter-title:hover {
+    background-color: rgba(77, 168, 255, 0.2);
+    border-color: rgba(77, 168, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 168, 255, 0.3);
+}
+
+.section h2 .separator {
+    color: #4da8ff;
+    font-weight: normal;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.list.compact {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item {
+    font-size: 21px;
+    background-color: #1a1a2e;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+     padding: 10px 10px;
+}
+
+.item.compact {
+    padding: 5px 10px;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.item.search-result {
+    text-align: left;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+    background-color: #262638;
+    box-shadow: 0 8px 20px rgba(77, 168, 255, 0.3);
+}
+
+.highlight {
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 0px 0px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.verse {
+    margin-bottom: 0px;
+    padding: 10px 10px 10px 45px; /* ✅ Added left padding for verse number */
+    /*border-radius: 10px;*/
+    background-color: #1a1a2e;
+    transition: all 0.3s;
+    /*box-shadow: 0 2px 8px rgba(0,0,0,0.3);*/
+    cursor: pointer;
+    font-size: 1.1em;
+    line-height: 1.6;
+    position: relative; /* ✅ Added for absolute positioning */
+}
+
+.verse:hover {
+    background-color: #262638;
+}
+
+.verse.highlighted {
+    background-color: #4da8ff;
+    color: #000 !important; /* ✅ Changed to pure black */
+}
+
+.verse-id {
+    font-weight: bold;
+    color: #4da8ff;
+    margin-right: 10px;
+    font-size: 0.9em;
+    position: absolute; /* ✅ Added absolute positioning */
+    left: 10px; /* ✅ Fixed position */
+    top: 10px; /* ✅ Fixed position */
+}
+
+.verse.highlighted .verse-id {
+    color: #000 !important; /* ✅ Changed to pure black */
+}
+
+/* ✅ NEW: Ensure all text in highlighted verse is black */
+.verse.highlighted div {
+    color: #000 !important;
+}
+
+.verse.marked-yellow {
+    background-color: #ffd54f;
+    color: #000;
+}
+
+.verse.marked-green {
+    background-color: #81c784;
+    color: #000;
+}
+
+.verse.marked-blue {
+    background-color: #64b5f6;
+    color: #000;
+}
+
+.verse.marked-pink {
+    background-color: #f48fb1;
+    color: #000;
+}
+
+.verse.marked-orange {
+    background-color: #ffb74d;
+    color: #000;
+}
+
+#color-picker-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#color-picker-content {
+    background-color: #1a1a2e;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+    max-width: 90%;
+}
+
+#color-picker-title {
+    color: #4da8ff;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.color-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.color-option {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.color-option:hover {
+    transform: scale(1.15);
+    border-color: #4da8ff;
+}
+
+.color-option.none {
+    background-color: #262638;
+    color: #ff4d4d;
+}
+
+/* ===================================
+   ZOOM CONTROL - BOTTOM RIGHT FLOATING
+   =================================== */
+
+#zoom-control {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+}
+
+/* Main Zoom Button */
+.zoom-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4da8ff 0%, #2b8cff 100%);
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(77, 168, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(77, 168, 255, 0.6);
+}
+
+.zoom-button:active {
+    transform: scale(0.95);
+}
+
+/* Zoom Panel - Slider Container */
+.zoom-panel {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    background-color: #1a1a2e;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 240px;
+    animation: slideUp 0.3s ease-out;
+}
+
+.zoom-panel.active {
+    display: flex;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Zoom Header */
+.zoom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.zoom-label {
+    font-size: 14px;
+    color: #aaa;
+    font-weight: 500;
+}
+
+.zoom-percentage {
+    font-size: 18px;
+    color: #4da8ff;
+    font-weight: bold;
+}
+
+/* Slider Styling */
+.zoom-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #2a2a3e 0%, #4da8ff 50%, #2a2a3e 100%);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+
+/* Slider Thumb - Chrome/Safari */
+.zoom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4da8ff 0%, #2b8cff 100%);
+    cursor: grab;
+    box-shadow: 0 2px 8px rgba(77, 168, 255, 0.5);
+    transition: all 0.2s;
+}
+
+.zoom-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(77, 168, 255, 0.7);
+}
+
+.zoom-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* Slider Thumb - Firefox */
+.zoom-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4da8ff 0%, #2b8cff 100%);
+    cursor: grab;
+    border: none;
+    box-shadow: 0 2px 8px rgba(77, 168, 255, 0.5);
+    transition: all 0.2s;
+}
+
+.zoom-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+.zoom-slider::-moz-range-thumb:active {
+    cursor: grabbing;
+}
+
+/* Quick Action Buttons */
+.zoom-quick-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.zoom-quick-btn {
+    flex: 1;
+    padding: 10px;
+    background-color: #262638;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.zoom-quick-btn:first-child {
+    font-size: 12px;
+}
+
+.zoom-quick-btn:nth-child(2) {
+    font-size: 16px;
+}
+
+.zoom-quick-btn:nth-child(3) {
+    font-size: 20px;
+}
+
+.zoom-quick-btn:nth-child(4) {
+    font-size: 24px;
+}
+
+.zoom-quick-btn:hover {
+    background-color: #4da8ff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.zoom-quick-btn.active {
+    background-color: #4da8ff;
+    color: white;
+}
+
+/* ========================
+   LIGHT MODE STYLES - UPDATED
+   ======================== */
+html.light-mode {
+    --bg-primary: #ffffff;                  /* Whole page white */
+    --bg-header: #e0f2fe;                  /* Header light blue (sky blue) */
+    --text-primary: #1e293b;                /* Dark gray-black text */
+    --header-title-color: #1e40af;         /* Professional deep blue for titles */
+    --card-bg: #ffffff;                    /* Cards pure white */
+    --card-border: #e2e8f0;                /* Very light border for cards */
+    --button-hover-bg: rgba(30, 64, 175, 0.1);
+}
+
+html.light-mode body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+html.light-mode #header {
+    background-color: var(--bg-header);    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+html.light-mode #result-count {
+    font-size: 0.85em;
+    color: #023667;
+    /*font-weight: 300;*/
+}
+
+html.light-mode #title,
+html.light-mode #header-title,
+html.light-mode .section h2 {
+    color: var(--header-title-color);
+}
+
+html.light-mode .header-icon-btn,
+html.light-mode .nav-button,
+html.light-mode #search-icon {
+    color: var(--header-title-color);
+}
+
+#theme-toggle {
+    color: #89bbea; /* Light blue in dark mode */
+}
+
+#moon-icon {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(137, 187, 234, 0.6));
+}
+
+#theme-toggle:hover #moon-icon {
+    filter: drop-shadow(0 0 8px rgba(137, 187, 234, 0.8));
+    transform: rotate(-15deg);
+}
+
+html.light-mode #theme-toggle {
+    color: #1e40af; /* Dark blue */
+}
+
+html.light-mode #moon-icon {
+    filter: drop-shadow(0 0 4px rgba(30, 64, 175, 0.5));
+}
+
+html.light-mode #theme-toggle:hover #moon-icon {
+    filter: drop-shadow(0 0 8px rgba(30, 64, 175, 0.7));
+}
+
+html.light-mode .header-icon-btn:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Search input light style */
+html.light-mode #search-input {
+    background-color: #f8fafc;
+    color: var(--text-primary);
+    border: 1px solid #cbd5e1;
+}
+
+html.light-mode #search-input::placeholder {
+    color: #94a3b8;
+}
+
+/* ⭐ ముఖ్యం: కార్డ్స్ (.item) pure white చేయి */
+html.light-mode .item {
+    background-color: var(--card-bg) !important;   /* Pure white */
+    color: #060505 !important; 
+    padding: 10px 10px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);     /* Light shadow for depth */
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+html.light-mode .item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: #93c5fd;
+}
+
+
+
+/* Clickable elements light style */
+html.light-mode .clickable-book,
+html.light-mode .clickable-chapter,
+html.light-mode .clickable-book-title,
+html.light-mode .clickable-chapter-title {
+    /*background-color: rgba(30, 64, 175, 0.08);*/
+       border: 2px solid rgb(52 120 185 / 50%);
+    color: var(--header-title-color);
+}
+
+html.light-mode .clickable-book:hover,
+html.light-mode .clickable-chapter:hover {
+    background-color: rgba(30, 64, 175, 0.15);
+}
+
+/* Loading text */
+html.light-mode .loading {
+    color: var(--header-title-color);
+}
+
+/* ===================================
+   ✅ NEW: LIGHT MODE VERSE FIXES
+   =================================== */
+
+/* Light mode - verses should be pure white with black text */
+html.light-mode .verse {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-bottom: 1px solid #f1f5f9;
+    box-shadow: none !important;
+    padding: 10px 10px 10px 45px; /* ✅ Maintain left padding */
+    margin-bottom: 0;
+}
+
+/* Light mode - secondary language text should be black, not gray */
+html.light-mode .verse div[style*="color: #aaa"],
+html.light-mode .verse div[style*="color:#aaa"] {
+    color: #000 !important;
+    font-weight: 500;
+}
+
+/* Light mode - highlighted verse */
+html.light-mode .verse.highlighted {
+    background-color: #fef3c7 !important;
+    color: #1e3a8a !important;
+}
+
+html.light-mode .verse.highlighted .verse-id {
+    color: #1e3a8a !important;
+    font-weight: bold;
+}
+
+html.light-mode .verse.highlighted div {
+    color: #1e3a8a !important;
+}
+
+html.light-mode #nav-header {
+    background-color: transparent !important;  /* Remove background */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* ===================================
+   LIGHT MODE ZOOM STYLES
+   =================================== */
+
+html.light-mode .zoom-button {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    box-shadow: 0 4px 20px rgba(30, 64, 175, 0.3);
+}
+
+html.light-mode .zoom-button:hover {
+    box-shadow: 0 6px 30px rgba(30, 64, 175, 0.5);
+}
+
+html.light-mode .zoom-panel {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+html.light-mode .zoom-label {
+    color: #64748b;
+}
+
+html.light-mode .zoom-percentage {
+    color: #1e40af;
+}
+
+html.light-mode .zoom-slider {
+    background: linear-gradient(to right, #e2e8f0 0%, #3b82f6 50%, #e2e8f0 100%);
+}
+
+html.light-mode .zoom-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    box-shadow: 0 2px 8px rgba(30, 64, 175, 0.4);
+}
+
+html.light-mode .zoom-slider::-moz-range-thumb {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    box-shadow: 0 2px 8px rgba(30, 64, 175, 0.4);
+}
+
+html.light-mode .zoom-quick-btn {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+html.light-mode .zoom-quick-btn:hover,
+html.light-mode .zoom-quick-btn.active {
+    background-color: #3b82f6;
+    color: white;
+}
+/* ===================================
+   MOBILE RESPONSIVENESS - 320px
+   =================================== */
+@media (max-width: 320px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 5px 10px;
+    }
+    
+    #title {
+        font-size: 1em;
+    }
+    
+    .header-icon-btn {
+        font-size: 16px;
+        padding: 4px;
+    }
+    
+    #header-actions {
+        gap: 6px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 0.85em;
+    }
+    
+    #header-title .clickable-book {
+        padding: 0px 18px;
+        min-height: 32px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+        padding: 0px 15px;
+        min-height: 32px;
+        font-size: 0.9em;
+    }
+    
+    .nav-button {
+        padding: 5px 8px;
+        font-size: 1em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 1.2em;
+        gap: 5px;
+        padding: 0 8px;
+        margin-bottom: 15px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 3px 8px;
+        font-size: 0.8em;
+        border-width: 1.5px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 0.95em;
+        /*padding: 10px;*/
+        line-height: 1.5;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.85em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1em;
+        padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+        gap: 6px;
+    }
+}
+
+/* ===================================
+   MOBILE RESPONSIVENESS - 360px
+   =================================== */
+@media (min-width: 321px) and (max-width: 360px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 8px 10px;
+    }
+    
+    #title {
+        font-size: 1em;
+    }
+    
+    .header-icon-btn {
+        font-size: 16px;
+        padding: 5px;
+    }
+    
+    #header-actions {
+        gap: 7px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1em;
+    }
+    
+    #header-title .clickable-book {
+         padding: 0px 17px;
+        min-height: 34px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+      padding: 0px 14px;
+        min-height: 34px;
+        font-size: 0.95em;
+    }
+    
+    .nav-button {
+        padding: 6px 10px;
+        font-size: 1.15em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 1.4em;
+        gap: 6px;
+        padding: 0 10px;
+        margin-bottom: 18px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 4px 10px;
+        font-size: 0.82em;
+        border-width: 1.5px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.05em;
+        /*padding: 10px;*/
+        line-height: 1.55;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.88em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1.2em;
+       padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 5px;
+    }
+}
+
+/* ===================================
+   MOBILE RESPONSIVENESS - 380px to 420px
+   =================================== */
+@media (min-width: 361px) and (max-width: 420px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 8px 10px;
+    }
+    
+    #title {
+        font-size: 1em;
+    }
+    
+    .header-icon-btn {
+        font-size: 16px;
+        padding: 6px;
+    }
+    
+    #header-actions {
+        gap: 8px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1.1em;
+    }
+    
+    #header-title .clickable-book {
+         padding: 0px 15px;
+        min-height: 36px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+         padding: 0px 18px;
+        min-height: 36px;
+        font-size: 1.2em;
+    }
+    
+    .nav-button {
+        padding: 7px 12px;
+        font-size: 1.25em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 1.55em;
+        gap: 7px;
+        padding: 0 10px;
+        margin-bottom: 20px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        font-size: 0.85em;
+        border-width: 1.5px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.12em;
+        /*padding: 10px;*/
+        line-height: 1.6;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.9em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1em;
+        padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+        gap: 5px;
+    }
+    
+   #zoom-control {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .zoom-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .zoom-panel {
+        bottom: 70px;
+        min-width: 200px;
+        padding: 14px;
+    }
+}
+
+/* ===================================
+   TABLET RESPONSIVENESS - 421px to 768px
+   =================================== */
+@media (min-width: 421px) and (max-width: 768px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 10px 15px;
+    }
+    
+    .item.compact{   
+        padding: 10px 10px;
+        
+    }
+    
+    #title {
+        font-size: 1.1em;
+    }
+    
+    .header-icon-btn {
+        font-size: 16px;
+        padding: 7px;
+    }
+    
+    #header-actions {
+        gap: 10px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1.25em;
+    }
+    
+    #header-title .clickable-book {
+       padding: 0px 19px;
+        min-height: 38px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+      padding: 0px 16px;
+        min-height: 38px;
+        font-size: 1.2em;
+    }
+    
+    .nav-button {
+        padding: 8px 14px;
+        font-size: 1.35em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 1.7em;
+        gap: 9px;
+        margin-bottom: 22px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 6px 13px;
+        font-size: 0.88em;
+        border-width: 2px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.3em;
+        /*padding: 14px;*/
+        line-height: 1.65;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.92em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1.25em;
+       padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 13px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+        gap: 10px;
+    }
+    
+   #zoom-control {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .zoom-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .zoom-panel {
+        bottom: 75px;
+        min-width: 220px;
+        padding: 16px;
+    }
+    
+    .zoom-quick-btn:first-child { font-size: 11px; }
+    .zoom-quick-btn:nth-child(2) { font-size: 14px; }
+    .zoom-quick-btn:nth-child(3) { font-size: 18px; }
+    .zoom-quick-btn:nth-child(4) { font-size: 22px; }
+}
+
+/* ===================================
+   SMALL DESKTOP - 769px to 1024px
+   =================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 10px 12px;
+    }
+    
+    #title {
+        font-size: 1.2em;
+    }
+    
+    .header-icon-btn {
+        font-size: 18px;
+        padding: 8px;
+    }
+    
+    #header-actions {
+        gap: 11px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1.35em;
+    }
+    
+    #header-title .clickable-book {
+         padding: 0px 20px;
+        min-height: 40px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+          padding: 0px 17px;
+        min-height: 40px;
+        font-size: 0.98em;
+    }
+    
+    .nav-button {
+        padding: 9px 16px;
+        font-size: 1.4em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 1.85em;
+        gap: 11px;
+        margin-bottom: 24px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 7px 15px;
+        font-size: 0.92em;
+        border-width: 2px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.25em;
+        /*padding: 15px;*/
+        line-height: 1.7;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.93em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1.1em;
+       padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+        gap: 14px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+        gap: 11px;
+    }
+}
+
+/* ===================================
+   LARGE DESKTOP - 1025px and above
+   =================================== */
+@media (min-width: 1025px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+       padding: 10px 20px;
+    }
+    
+    #title {
+        font-size: 1.2em;
+    }
+    
+    .header-icon-btn {
+        font-size: 20px;
+        padding: 9px;
+    }
+    
+    #header-actions {
+        gap: 13px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1.5em;
+    }
+    
+    #header-title .clickable-book {
+          padding: 0px 21px;
+        min-height: 42px;
+        font-size: 1.09em;
+    }
+    
+    #header-title .clickable-chapter {
+       padding: 0px 17px;
+        min-height: 42px;
+        font-size: 1em;
+    }
+    
+    .nav-button {
+        padding: 10px 18px;
+        font-size: 1.5em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 2em;
+        gap: 13px;
+        margin-bottom: 26px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 8px 17px;
+        font-size: 0.95em;
+        border-width: 2px;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.3em;
+        /*padding: 16px;*/
+        line-height: 1.75;
+        margin-bottom: 0px;
+    }
+    
+    .verse-id {
+        font-size: 0.95em;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1.15em;
+      padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 16px;
+    }
+    
+    .list.compact {
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 12px;
+    }
+}
+
+/* ===================================
+   EXTRA LARGE DESKTOP - 1440px and above
+   =================================== */
+@media (min-width: 1440px) {
+    /* Header - Book/Chapter/Verse Selection Pages */
+    #header {
+        padding: 15px 20px;
+    }
+    
+    #title {
+        font-size: 1.2em;
+    }
+    
+    .header-icon-btn {
+        font-size: 20px;
+        padding: 10px;
+    }
+    
+    /* Header after verse selection (Chapter opened) */
+    #header-title {
+        font-size: 1.65em;
+    }
+    
+    #header-title .clickable-book {
+        padding: 0px 22px;
+        min-height: 44px;
+    }
+    
+    #header-title .clickable-chapter {
+        padding: 0px 17px;
+        min-height: 44px;
+    }
+    
+    .nav-button {
+        font-size: 1.6em;
+    }
+    
+    /* Section headers on selection pages */
+    .section h2 {
+        font-size: 2.2em;
+        gap: 15px;
+        margin-bottom: 28px;
+    }
+    
+    .section h2 .clickable-book-title,
+    .section h2 .clickable-chapter-title {
+        padding: 9px 19px;
+        font-size: 0.97em;
+    }
+    
+    /* Verses font size when chapter is opened */
+    .verse {
+        font-size: 1.4em;
+        /*padding: 18px;*/
+        line-height: 1.8;
+    }
+    
+    /* List items on selection pages */
+    .item {
+        font-size: 1.2em;
+       padding: 10px 10px;
+    }
+    
+    .list {
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        gap: 18px;
+    }
+}
+
+/* ===================================
+   BOOKS PAGE - TWO COLUMN LAYOUT
+   Old Testament | New Testament
+   Hidden scrollbars, separate scrolling
+   =================================== */
+.section.books-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    height: calc(100vh - 80px); /* Reduced height since no main h2 */
+    padding: 10px 5px 0 5px;
+}
+
+.section.books-layout > h2 {
+    display: none; /* Hide main "Books" title */
+}
+
+.section.books-layout .testament-column {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.section.books-layout .testament-column h6 {
+    text-align: center;
+    color: rgb(77 168 255) !important;
+    font-size: 1.3em;
+    margin: 0 0 8px 0; /* Reduced gap below title */
+    font-weight: bold;
+}
+
+html.light-mode .section.books-layout .testament-column h6 {
+    color:#1e40af!important;
+}
+
+.section.books-layout .testament-list {
+    flex: 1;
+    overflow-y: scroll;
+    padding-right: 3px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.section.books-layout .testament-list::-webkit-scrollbar {
+    display: none;
+}
+
+.section.books-layout .list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+/* ===================================
+   320px - Extra Small Mobile
+   =================================== */
+@media (max-width: 320px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        height: calc(100vh - 120px);
+        padding: 0 3px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    
+    .section.books-layout .list {
+        gap: 6px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 0.8em;
+        padding: 8px 5px;
+    }
+}
+
+/* ===================================
+   360px - Standard Small Mobile
+   =================================== */
+@media (min-width: 321px) and (max-width: 360px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        height: calc(100vh - 130px);
+        padding: 0 5px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 1.3em;
+        margin-bottom: 12px;
+    }
+    
+    .section.books-layout .list {
+        gap: 8px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 0.9em;
+        padding: 10px 8px;
+    }
+}
+
+/* ===================================
+   380px to 420px - Large Mobile
+   =================================== */
+@media (min-width: 361px) and (max-width: 420px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        height: calc(100vh - 135px);
+        padding: 0 8px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+    }
+    
+    .section.books-layout .list {
+        gap: 10px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 1em;
+        padding: 10px 10px;
+    }
+}
+
+/* ===================================
+   421px to 768px - Tablets
+   =================================== */
+@media (min-width: 421px) and (max-width: 768px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        height: calc(100vh - 145px);
+        padding: 0 10px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 1.6em;
+        margin-bottom: 18px;
+    }
+    
+    .section.books-layout .list {
+        gap: 12px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 1.1em;
+        padding: 12px 10px;
+    }
+}
+
+/* ===================================
+   769px to 1024px - Small Desktop/Tablet Landscape
+   =================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        height: calc(100vh - 150px);
+        padding: 0 15px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    
+    .section.books-layout .list {
+        gap: 13px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 1.0em;
+        padding: 12px 10px;
+    }
+}
+
+/* ===================================
+   1025px to 1440px - Desktop
+   =================================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        height: calc(100vh - 155px);
+        padding: 0 20px;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 2em;
+        margin-bottom: 22px;
+    }
+    
+    .section.books-layout .list {
+        gap: 14px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 1.05em;
+        padding: 12px 10px;
+    }
+}
+
+/* ===================================
+   1441px and above - Large Desktop
+   =================================== */
+@media (min-width: 1441px) {
+    .section.books-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        height: calc(100vh - 160px);
+        padding: 0 30px;
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .section.books-layout h2 {
+        font-size: 2.2em;
+        margin-bottom: 25px;
+    }
+    
+    .section.books-layout .list {
+        gap: 16px;
+    }
+    
+    .section.books-layout .item {
+        font-size: 1.1em;
+        padding: 14px 12px;
+    }
+}
+
+/* ===================================
+   LIGHT MODE - Books Layout
+   =================================== */
+html.light-mode .section.books-layout .testament-list {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html.light-mode .section.books-layout .testament-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===================================
+   LANGUAGE CONTROL - NEW DROPDOWN STYLE
+   =================================== */
+/* Language Control */
+/* ===================================
+   LANGUAGE CONTROL - UPDATED DROPDOWN STYLE
+   =================================== */
+/* Language Control */
+#language-control {
+    position: relative;
+}
+
+/* Language icon image styling - Increased size */
+.lang-flag-img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(77, 168, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+.lang-flag-img:hover {
+    filter: drop-shadow(0 4px 8px rgba(77, 168, 255, 0.5));
+    transform: scale(1.05);
+}
+#language-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+@media (max-width: 420px) {
+    .lang-flag-img {
+        width: 31px;
+        height: 31px;
+    }
+    
+     #language-btn {
+        padding: 0px;  /* Match mobile header icon padding */
+    }
+}
+
+@media (min-width: 421px) and (max-width: 768px) {
+    .lang-flag-img {
+        width: 32px;
+        height: 32px;
+    }
+
+.lang-name {
+    font-size: 23px;
+}
+}
+@media (min-width: 769px) {
+    .lang-flag-img {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+#language-btn .lang-flag {
+    font-size: 20px;
+}
+
+.lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 18px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    gap: 0px;
+    align-items: center;
+}
+/* ✅ Close Button */
+.lang-close-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: transparent;
+    border: none;
+    color: #3b82f6;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 2px 6px;
+    line-height: 1;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.lang-close-btn:hover {
+    color: #3b82f6;
+    transform: scale(1.2);
+}
+
+/* Light mode */
+html.light-mode .lang-close-btn {
+    color: #1e40af;
+}
+
+html.light-mode .lang-close-btn:hover {
+    color: #1e40af;
+}
+
+.lang-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Column 1 - Telugu and English vertical stack */
+.lang-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Language Options */
+.lang-option {
+    padding: 6px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Checkbox Styling */
+.lang-checkbox {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+    flex-shrink: 0;
+}
+
+/* Language Name */
+.lang-name {
+    font-size: 22px;
+    color: #e0e0e0;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Column 2 - Swap Button Wrapper */
+.lang-swap-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Swap Button */
+.lang-swap-btn {
+    background: transparent;
+    color: skyblue;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-swap-btn:hover {
+    transform: scale(1.15);
+}
+
+.lang-swap-btn:active {
+    transform: scale(0.95);
+}
+
+/* Swap Arrows - Vertical Layout */
+.swap-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.swap-arrows i {
+    font-size: 12px;
+    line-height: 1;
+}
+/* Light Mode */
+html.light-mode .lang-menu {
+    background: white;
+}
+
+html.light-mode .lang-option {
+    color: #1e293b;
+}
+
+html.light-mode .lang-option:hover {
+    background: #f8fafc !important;  
+}
+
+/*html.light-mode .lang-option.selected {*/
+/*    background: rgba(30, 64, 175, 0.08);*/
+/*}*/
+
+html.light-mode .lang-name {
+    color: #1e293b;
+}
+
+html.light-mode .lang-swap-btn.disabled {
+    background: #d1d5db;
+}
+html.light-mode .lang-swap-btn {
+    background: transparent; /* ✅ FIXED: Transparent in light mode */
+    color: #1e40af; /* ✅ Blue arrow color for light mode */
+    border: none; /* ✅ FIXED: No border */
+}
+
+html.light-mode .lang-swap-btn:hover {
+    background: transparent; /* ✅ FIXED: Stay transparent */
+    color: #1e40af;
+    box-shadow: none; /* ✅ FIXED: No shadow */
+}
+
+html.light-mode .lang-swap-btn.disabled {
+    background: transparent;
+    opacity: 0.5;
+}
+
+.swap-arrows.horizontal {
+  display: flex;
+  flex-direction: row;   /* 👈 side by side */
+  align-items: center;
+  gap: 2px;              /* arrows మధ్య space */
+}
+
+.swap-arrows.horizontal i {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ===================================
+   MOBILE RESPONSIVENESS - Language Dropdown
+   =================================== */
+@media (max-width: 420px) {
+    .lang-menu {
+        min-width: 64px; /* ✅ Even smaller on mobile */
+        right: -10px;
+        padding: 20px 15px;
+    }
+    .lang-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+    .lang-option {
+        padding: 0px 4px;
+        font-size: 14px;
+    }
+    
+    .lang-flag {
+        font-size: 1.2em;
+    }
+}
+
+@media (min-width: 421px) and (max-width: 768px) {
+    .lang-menu {
+        min-width: 82px;
+     padding: 20px 15px;
+    }
+    .lang-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+    .lang-option {
+        padding: 0px 0px;
+    }
+}
+
+/* Parallel Verse Styling */
+.parallel-verse {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Light mode adjustments */
+.light-mode .language-popup-content {
+    background: #fff;
+}
+
+.light-mode .language-option {
+    background: #f5f5f5;
+}
+
+.light-mode .language-option:hover {
+    background: #e5e5e5;
+}
+/* =========================
+   SEARCH DROPDOWN FEATURE
+   ========================= */
+
+.search-scope {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+#scope-btn {
+    background: #f3f3f3;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+body.dark-mode #scope-btn {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+#scope-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 200px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+}
+
+body.dark-mode #scope-menu {
+    background: #1e1e1e;
+    border: 1px solid #444;
+}
+
+.scope-item {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.scope-item:hover {
+    background: #f5f5f5;
+}
+
+body.dark-mode .scope-item:hover {
+    background: #333;
+}
+
+.has-submenu {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    left: 200px;
+    top: 0;
+    width: 220px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+body.dark-mode .submenu {
+    background: #1e1e1e;
+    border: 1px solid #444;
+}
+
+.has-submenu:hover .submenu {
+    display: block;
+}
+
+.scope-item:hover {
+    background: #f0f0f0;
+}
+
+.submenu div {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.submenu div:hover {
+    background: #eaeaea;
+}
+
+body.dark-mode .submenu div:hover {
+    background: #333;
+}
+
+/* mobile fix */
+
+@media (max-width:768px) {
+
+    #scope-menu {
+        width: 180px;
+    }
+
+    .submenu {
+        left: 180px;
+        width: 180px;
+    }
+
+}
