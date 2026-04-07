@@ -40,7 +40,7 @@ try {
     ];
     
     $fileName = $bookFileNames[$bookNumber - 1];
-    $filePath = __DIR__ . '/Books/' . $fileName . '.json';
+    $filePath = __DIR__ . '../Books/' . $fileName . '.json';
     
     // ⭐ Cache key with version
     $cacheKey = 'bible_book_' . $bookNumber . '_v2';
